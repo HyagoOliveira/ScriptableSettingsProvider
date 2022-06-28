@@ -1,7 +1,7 @@
 {
   "name": "com.actioncode.scriptable-settings-provider",
   "displayName": "ActionCode-Scriptable Settings Provider",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "unity": "2019.3",
   "description": "This package makes easier to create Settings Menus.",
   "keywords": [
@@ -9,7 +9,6 @@
     "Editor",
     "Menu"
   ],
-  "dependencies": {},
   "license": "MIT",
   "homepage": "https://github.com/HyagoOliveira/ScriptableSettingsProvider#readme",
   "repository": {
