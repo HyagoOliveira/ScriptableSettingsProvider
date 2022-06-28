@@ -7,11 +7,46 @@
 
 ## Summary
 
-[...]
+Using this package you can create Settings Menus by extending the [AbstractScriptableSettingsProvider](/Editor/AbstractScriptableSettingsProvider.cs) class.
 
 ## How To Use
 
-### Using [...]
+First, create a class extending from ScriptableObject:
+
+```csharp
+using UnityEngine;
+
+public sealed class TestScriptableMenu : ScriptableObject
+{
+    [Min(10)] public int id;
+    [Range(0F, 1F)] public float range;
+    [TextArea] public string description;
+}
+```
+
+Now, **on an Editor folder**, create class implementing AbstractScriptableSettingsProvider, with a static `CreateProjectSettingsMenu` function:
+
+```csharp
+using UnityEditor;
+using ActionCode.ScriptableSettingsProvider.Editor;
+
+public sealed class TestScriptableMenuProvider :
+    AbstractScriptableSettingsProvider<TestScriptableMenu>
+{
+    public TestScriptableMenuProvider() :
+        base("Your Menu Category/Scriptable Test")
+    {
+    }
+
+    protected override string GetConfigName() => "com.yourpackage.name";
+
+    [SettingsProvider]
+    private static SettingsProvider CreateProjectSettingsMenu() =>
+            new TestScriptableMenuProvider();
+}
+```
+
+![The Scriptable Test Menu](/Docs~/ScriptableTestMenu.png "The Scriptable Test Menu").
 
 ## Installation
 
