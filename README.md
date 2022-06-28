@@ -24,7 +24,7 @@ public sealed class TestScriptableMenu : ScriptableObject
 }
 ```
 
-Now, **on an Editor folder**, create class implementing AbstractScriptableSettingsProvider, with a static `CreateProjectSettingsMenu` function:
+Now, **on an Editor folder**, create a class implementing **AbstractScriptableSettingsProvider**, with a static `CreateProjectSettingsMenu` function:
 
 ```csharp
 using UnityEditor;
@@ -46,7 +46,9 @@ public sealed class TestScriptableMenuProvider :
 }
 ```
 
-![The Scriptable Test Menu](/Docs~/ScriptableTestMenu.png "The Scriptable Test Menu").
+Open the **Project Settings** Windows and check your new menu entry:
+
+![The Scriptable Test Menu](/Docs~/ScriptableTestMenu.png "The Scriptable Test Menu")
 
 ## Installation
 
