@@ -54,11 +54,13 @@ Open the **Project Settings** Windows and check your new menu entry:
 
 Preloaded Assets are assets that will be loaded when the game starts and they will be kept in memory until the game finishes.
 
-This is useful to store data that can be accessed at any time, like a global Game Settings.
+This is useful to store data that can be accessed at any time, like a global Game Settings and you can easily load this data by using `Resources.Load()` function.
 
-To do this, you must add your Object reference into the **Preloaded Asset** list, located at **Project Settings**, **Optimization** section.
+To be able to do this, you must first add your Object reference into the **Preloaded Asset** list, located at **Project Settings**, **Optimization** section.
 
 ![The Preloaded Assets List](/Docs~/PreloadedAssetsList.png "The Preloaded Assets List")
+
+### Creating Settings as Preloaded Asset
 
 You can mark a Settings Provider class as a Preload Asset and, every time the **Current Settings** property is edited inside your menu, the settings reference inside the Preloaded Asset list will be edited as well.
 
