@@ -31,6 +31,7 @@ namespace ActionCode.ScriptableSettingsProvider.Editor
 
         private string searchContext;
         private VisualElement rootElement;
+        private readonly bool isPreloadedAsset;
 
         private static string ConfigName = string.Empty;
 
@@ -42,11 +43,13 @@ namespace ActionCode.ScriptableSettingsProvider.Editor
         /// The last token becomes the settings label if none is provided.
         /// <para>Do not prefix it with <b>Project/</b>.</para>
         /// </param>
-        public AbstractScriptableSettingsProvider(string settingsWindowPath) :
+        /// <param name="isPreloadedAsset">Whether to add/edit this asset into Preloaded Asset list.</param>
+        public AbstractScriptableSettingsProvider(string settingsWindowPath, bool isPreloadedAsset = false) :
             base("Project/" + settingsWindowPath, () => CurrentSettings)
         {
             ConfigName = GetConfigName();
             keywords = GetSearchKeywordsFromGUIContentProperties<T>();
+            this.isPreloadedAsset = isPreloadedAsset;
         }
 
         public override void OnActivate(string searchContext, VisualElement rootElement)
@@ -72,6 +75,14 @@ namespace ActionCode.ScriptableSettingsProvider.Editor
 
         private void DrawCurrentSettingsGUI()
         {
+            if (isPreloadedAsset)
+            {
+                const string message = "Your settings is marked as a Preloaded Asset.\n" +
+                    "Changes on it will add, remove or replace your Preloaded Asset list, " +
+                    "located at Project Settings, Optimization section.";
+                EditorGUILayout.HelpBox(message, MessageType.Info, wide: true);
+            }
+
             EditorGUI.BeginChangeCheck();
             EditorGUI.indentLevel++;
 
@@ -87,6 +98,13 @@ namespace ActionCode.ScriptableSettingsProvider.Editor
             var hasNewSettings = EditorGUI.EndChangeCheck();
             if (hasNewSettings)
             {
+                if (isPreloadedAsset)
+                {
+                    var wasSettingsRemoved = settings == null;
+                    if (wasSettingsRemoved) PreloadedAsset.Remove(CurrentSettings);
+                    else PreloadedAsset.Replace(CurrentSettings, settings);
+                }
+
                 CurrentSettings = settings;
                 RefreshEditor();
             }
@@ -100,12 +118,12 @@ namespace ActionCode.ScriptableSettingsProvider.Editor
             var openCreateDialog = GUILayout.Button("Create");
             if (openCreateDialog)
             {
-                CurrentSettings = SaveSettingsAsset();
+                CurrentSettings = SaveSettingsAsset(isPreloadedAsset);
                 RefreshEditor();
             }
         }
 
-        private static T SaveSettingsAsset()
+        private static T SaveSettingsAsset(bool isPreloaded)
         {
             var name = typeof(T).Name;
             var path = EditorUtility.SaveFilePanelInProject(
@@ -121,6 +139,7 @@ namespace ActionCode.ScriptableSettingsProvider.Editor
             var settings = ScriptableObject.CreateInstance<T>();
 
             AssetDatabase.CreateAsset(settings, path);
+            if (isPreloaded) PreloadedAsset.Add(settings);
             AssetDatabase.SaveAssets();
 
             Selection.activeObject = settings;
