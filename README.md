@@ -50,6 +50,27 @@ Open the **Project Settings** Windows and check your new menu entry:
 
 ![The Scriptable Test Menu](/Docs~/ScriptableTestMenu.png "The Scriptable Test Menu")
 
+## Preloaded Asset
+
+Preloaded Assets are assets that will be loaded when the game starts and they will be kept in memory until the game finishes.
+
+This is useful to store data that can be accessed at any time, like a global Game Settings.
+
+To do this, you must add your Object reference into the **Preloaded Asset** list, located at **Project Settings**, **Optimization** section.
+
+![The Preloaded Assets List](/Docs~/PreloadedAssetsList.png "The Preloaded Assets List")
+
+You can mark a Settings Provider class as a Preload Asset and, every time the **Current Settings** property is edited inside your menu, the settings reference inside the Preloaded Asset list will be edited as well.
+
+To do this, just pass the `isPreloadedAsset` parameter as `true` inside your menu provider class, like so:
+
+```csharp
+    public TestScriptableMenuProvider() :
+        base("Your Menu Category/Scriptable Test", isPreloadedAsset: true)
+    {
+    }
+```
+
 ## Installation
 
 ### Using the Package Registry Server
