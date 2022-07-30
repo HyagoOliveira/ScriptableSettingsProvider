@@ -73,6 +73,17 @@ To do this, just pass the `isPreloadedAsset` parameter as `true` inside your men
     }
 ```
 
+Now `TestScriptableMenu` will be automatically instantiate when your game starts. To get a singleton access to it, you could do something like this: 
+
+```csharp
+public sealed class TestScriptableMenu : ScriptableObject
+{
+    public static TestScriptableMenu Instance { get; private set; }
+
+    private void OnEnable() => Instance = this;
+}
+```
+
 ## Installation
 
 ### Using the Package Registry Server
