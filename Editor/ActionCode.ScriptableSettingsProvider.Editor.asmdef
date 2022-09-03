@@ -1,9 +1,7 @@
 {
     "name": "ActionCode.ScriptableSettingsProvider.Editor",
     "rootNamespace": "ActionCode.ScriptableSettingsProvider.Editor",
-    "references": [
-        "GUID:77e82f3ea131a2d4eb01229a54d23117"
-    ],
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],
