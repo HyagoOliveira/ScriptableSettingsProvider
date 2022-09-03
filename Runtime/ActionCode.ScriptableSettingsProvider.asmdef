@@ -1,0 +1,14 @@
+{
+    "name": "ActionCode.ScriptableSettingsProvider",
+    "rootNamespace": "ActionCode.ScriptableSettingsProvider",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
